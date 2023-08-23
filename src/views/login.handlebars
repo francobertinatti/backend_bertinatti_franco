@@ -1,0 +1,27 @@
+<form method="get" action="/docs">
+  <button type="submit">Ver documentación</button>
+</form>
+<h1>Login</h1>
+
+<form action="" id="loginForm">
+    <label for="">Usuario</label>
+    <input type="email" name="email">
+    <br>
+
+    <label for="">Contraseña</label>
+    <input type="password" name="password">
+    <br>
+
+    <button type="submit">Iniciar Sesion</button>
+
+    <a href="/api/auth/forgetPassword">¿Olvidaste tu contraseña?</a>
+</form>
+
+<a href="/api/auth/github"><button>Ingresar con Github</button></a>
+
+<p>¿Todavia no te registraste?</p>
+<button id="redirectSignup">
+    Registrate primero
+</button>
+
+<script src="/js/login.js"></script>

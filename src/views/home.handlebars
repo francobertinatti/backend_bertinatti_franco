@@ -1,0 +1,10 @@
+<div>
+    <h1>PRODUCTOS</h1>
+
+    {{#each products}}
+        <h5>Producto #{{this.title}}</h5>
+    {{/each}}
+</div>
+
+{{!-- Hacer una vista para productos y uno para carts, debe tener los mismos queries
+limit, sort, paginacion, etc, los mismos que usamos en el get comun --}}

@@ -1,0 +1,18 @@
+<h1>Chat</h1>
+
+<div>
+    <input type="text" id="chatBox" placeholder="Ingrese un mensaje...">
+</div>
+
+<div>
+    <h2>Mensajes</h2>
+    <div id="messageLogs">
+        {{#each chats}}
+        <p>{{this.user}}: {{this.message}}</p>
+        {{/each}}
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

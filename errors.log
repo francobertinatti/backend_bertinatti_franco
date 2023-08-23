@@ -1,0 +1,2 @@
+{"level":"error","message":"Nivel Error","timestamp":"2023-07-25T21:38:29.740Z"}
+{"code":"ECONNREFUSED","hostname":"_mongodb._tcp.clusterprueba.cb855zp.mongodb.net","level":"fatal","message":"Error al conectar base de datos querySrv ECONNREFUSED _mongodb._tcp.clusterprueba.cb855zp.mongodb.net","stack":"Error: querySrv ECONNREFUSED _mongodb._tcp.clusterprueba.cb855zp.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:251:17)","syscall":"querySrv","timestamp":"2023-07-25T22:20:42.186Z"}

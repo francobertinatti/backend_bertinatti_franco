@@ -1,0 +1,209 @@
+openapi: "3.0.1"
+info:
+  title: API Products
+  version: "1.0"
+paths:
+  /api/carts:
+    post:
+      summary: Crea un carrito vacio.
+      tags:
+        - Carritos
+      responses:
+        "200":
+          description: Carrito creado con exito
+          content:
+            aplication/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Cart"
+        "500":
+          description: Error al crear un carrito
+  /api/carts/{cid}:
+    get:
+      summary: Trae un carrito en especifico.
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: id del carrito.
+      responses:
+        "200":
+          description: Carrito obtenido con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: Carrito No encontrado 
+    put:
+      summary: Actualiza el carrito con un array de productos
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          required: true
+          description: id del carrito
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema:
+              $ref: "#/components/requestBodies/updateProducts"
+      responses:
+        "200":
+          description: Carrito actualizado con éxito
+          content:
+            aplication/json:
+              schema:
+                $inf: "#/components/schemas/Cart"
+        "500":
+          descrition: Error al actualizar el carrito
+    delete:
+      summary: Elimina el carrito completo
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          require: true
+          description: id del carrito.
+      responses:
+        "200":
+          description: Carrito vaciado
+          content:
+            aplication/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "500":
+          description: Error al vaciar carrito
+  /api/carts/${cid}/products/${pid}:
+    post:
+      summary: Agrega un producto al carrito.
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          require: true
+          description: id del carrito.
+        - name: pid
+          require: true
+          description: id del producto.
+      responses:
+        "200":
+          description: Producto agregado con exito.
+          content:
+            aplication/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Cart"
+        "400":
+          description: Error al agregar el producto
+
+    put:
+      summary: Actualiza un carrito con la cantidad de productos unicamente
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          require: true
+          description: id del carrito.
+        - name: pid
+          require: true
+          description: id del producto.
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema:
+              $ref: "#/components/requestBodies/updateQuantity"
+      responses:
+        "200":
+          description: Carrito actualizado con éxito
+          content:
+            aplication/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "400":
+          description: Error updating cart
+    delete:
+      summary: Elimina un producto del carrito
+      tags:
+        - Carritos
+      parameters:
+        - name: cid
+          require: true
+          description: id del carrito.
+        - name: pid
+          require: true
+          description: id del producto.
+      responses:
+        "200":
+          description: Product removed from cart!
+          content:
+            aplication/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "500":
+          description: Error al eliminar un producto.
+
+
+
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        productos:
+          type: array
+          description: Productos dentro del carrito
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: id del producto
+              quantity:
+                type: number
+                description: Cantidad del producto
+  requestBodies:
+    updateProducts:
+      description: Informacion para actualizar el array de productos
+      properties:
+        productos:
+          type: array
+          description: Array con nuevos productos
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: Id del producto
+              quantity:
+                type: number
+                description: Numero de unidades del producto
+      example:
+        productos: [
+          {
+            product: 64401ad41a6077efffc3d26e,
+            quantity: 8
+          },
+          {
+            product: 64401b38b1241db962c7717c,
+            quantity: 2
+          },
+          {
+            product: 64401c2bb1241db962c7717e,
+            quantity: 68
+          }
+        ]
+    updateQuantity:
+      description: Informacion para actualizar un producto
+      properties:
+        quantity:
+          type: number
+          description: Cantidad de unidades
+      example:
+        quantity: 33
