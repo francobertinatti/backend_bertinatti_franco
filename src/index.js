@@ -96,10 +96,7 @@ const io = new Server(httpServer);
 io.on("connection", async(socket) =>{
     console.log('Cliente conectado en ' + socket.id);
 
-    /* socket.on('message', data =>{
-        messages.push(data) //Guarda los mensajes que recibe
-        io.emit('messageLogs', messages) //Muestra en pantalla los mensajes guardados desde el array / DB
-    }) */
+
 
     socket.on('message', async ({user,message}) =>{
         const chat = await Messages.create(user,message);
@@ -107,9 +104,8 @@ io.on("connection", async(socket) =>{
     })
 
     socket.on('newUser', user =>{
-        socket.broadcast.emit('userConnected', user) //Apenas se conecta uno nuevo, avisa a los demas que se conectó
-        socket.emit('messageLogs', messages) //Apenas se conecta uno nuevo, retorna los mensajes guardados en el array / DB
+        socket.broadcast.emit('userConnected', user) 
+        socket.emit('messageLogs', messages) 
     })
-    //const products = await pm.getProducts();
-    //io.emit("realtimeproducts", {products})
+
 })

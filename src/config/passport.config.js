@@ -64,26 +64,8 @@ const initializePassport = ()=>{
 
                     if(!passwordValidate(password, user)){
                         logger.info('Datos invalidos');
-                        /* console.log('Contraseña incorrecta'); */
                         return done(null,false);
                     }
-
-                    //Modificaciones para la cookie
-                   /*  const userObject = {
-                        id: user._id,
-                        email: user.email,
-                        role: user.role,
-                    } */
-/* 
-                    if(user.role === "admin"){
-                        req.session.user = userObject
-                    }else{
-                        req.session.user = {
-                            id:user._id,
-                            email: user.email,
-                            role: 'user'
-                        }
-                    } */
 
                     return done(null,user)
                 } catch (error) {
@@ -92,35 +74,7 @@ const initializePassport = ()=>{
             }
         )
     );
-    //Demas estrategias aca
-    passport.use('github',
-    new GithubStrategy({
-        clientID: 'Iv1.8ca86ce4644b28b1',
-        clientSecret: 'd777cd7dc1d5aaec166c68eb54274a3c3ff9b020',
-        callbackURL: 'http://localhost:8080/api/auth/githubcallback',
-    },
-    async (accessToken, refreshToken, profile, done)=>{
-        try {
-            const user = await Users.findOne({email: profile._json.email})
-
-            if(!user){
-                const newUserInfo = {
-                    first_name: profile._json.name,
-                    last_name: '',
-                    age: 18,
-                    email: profile._json.email,
-                    password: '',
-                }
-                const newUser = await Users.create(newUserInfo);
-                return done(null,newUser);
-            }
-            done(null,user)
-        } catch (error) {
-            return done(error)
-        }
-    }
-    ))
-
+    
     passport.serializeUser((user,done)=>{
         done(null,user.id)
     })

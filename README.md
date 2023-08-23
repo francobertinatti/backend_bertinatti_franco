@@ -52,5 +52,3 @@ Para ejecutar el proyecto en un entorno local, puedes utilizar el siguiente coma
 ```bash
 $ npm run start
 ```
-
-Aclaración: Es importante tener en cuenta que este proyecto aún se encuentra incompleto y requiere de una reestructuración fundamental con implementación en Docker para evitar posibles errores con Nodemailer. Además, se planea la adopción de Nest.js para mejorar la organización del código y aplicar patrones de diseño recomendados. Estos pasos adicionales contribuirán a la prolijidad y escalabilidad del proyecto en su conjunto.

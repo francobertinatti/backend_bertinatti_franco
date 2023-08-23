@@ -98,15 +98,7 @@ router.delete('/', async (req, res) => {
 
     console.log(inactiveUsers)
 
-  /*   await Users.deleteMany({
-      last_connection: {
-        $lt: twoDaysAgo
-      }
-    }) */
-  
-  /*   for (const user of inactiveUsers) {
-      await user.deleteOne();
-    } */
+
   
     res.status(200).json({message: `Esta ruta no hace nada...Usuarios eliminados: ${inactiveUsers.length}`});
   } catch (error) {

@@ -101,14 +101,14 @@ router.put("/:cid", async (req, res) => {
   }
 });
 
-//Actualizar un carrito con la cantidad de productos unicamente
+//Actualizar
 router.put("/:cid/products/:pid", async (req, res) => {
   try {
   const { cid, pid } = req.params;
   const { quantity } = req.body;
-  //await cm.updateCartItem(cid, pid, quantity); //Si la siguiente linea no funciona, borrarla y colocar esta
+
   const updatedCart = await cm.updateCartItem(cid, pid, quantity);
-  res.json({ message: "Carrito actualizado con éxito", updatedCart }); //Borrar tambien el updatedCart
+  res.json({ message: "Carrito actualizado con éxito", updatedCart }); 
   } catch (error) {
   res.status(500).json({ error: "Error updating cart" });
   }
@@ -131,7 +131,7 @@ router.get('/:cid/purchase', async(req,res)=>{
   try {
     const {cid} = req.params;
     const cart = await cm.getCartDBbyId(cid) 
-    const email = req.user.email; //Para el desafio del carrito no me lee el user tampoco
+    const email = req.user.email;
     const code = uuid.v4()
 
     const dataCompra = await checkData(code, email, cart)
@@ -152,79 +152,5 @@ router.get('/:cid/purchase', async(req,res)=>{
   }
 })
 
-//-----------------------FS------------------------
-
-/* router.post('/:cid/product/:pid', async (req, res) => {
-  try {
-    const { cid, pid } = req.params;
-    const quantity = parseInt(req.body.quantity) || 1;
-    const product = await pm.getProductById(pid);
-    if (!product) {
-      res.status(404).json({ error: 'Producto no encontrado' });
-    } else {
-      const cart = await cm.getCartsById(cid);
-      if (!cart) {
-        res.status(404).json({ error: 'Carrito no encontrado' });
-      } else {
-        console.log(cart, product.id, quantity);
-        await cm.addProductToCart(cart.id, product.id, quantity);
-        res.status(201).json({ message: 'Producto Agregado con exito' });
-      }
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}); */
-
-/* router.post('/', async (req, res) => {
-  try {
-    const carts = await cm.getCarts();
-    const cart = {
-      id: carts.length + 1,
-      products: []
-    };
-    carts.push(cart);
-    await cm.saveCartsArchivo(carts);
-    res.status(201).json(cart);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
- */
-/* router.get('/:cid', async (req, res) => {
-  try {
-    const { cid } = req.params;
-    const cart = await cm.getCartsById(cid);
-    if (!cart) {
-      res.status(404).json({ error: 'Carrito No encontrado' });
-    } else {
-      res.json(cart.products);
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}); */
-
-/* router.post('/:cid/product/:pid', async (req, res) => {
-  try {
-    const { cid, pid } = req.params;
-    const quantity = parseInt(req.body.quantity) || 1;
-    const product = await pm.getProductById(pid);
-    if (!product) {
-      res.status(404).json({ error: 'Producto no encontrado' });
-    } else {
-      const cart = await cm.getCartsById(cid);
-      if (!cart) {
-        res.status(404).json({ error: 'Carrito no encontrado' });
-      } else {
-        console.log(cart, product.id, quantity);
-        await cm.addProductToCart(cart.id, product.id, quantity);
-        res.status(201).json({ message: 'Producto Agregado con exito' });
-      }
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}); */
 
 module.exports = router;

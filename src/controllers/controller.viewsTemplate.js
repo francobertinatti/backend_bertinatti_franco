@@ -4,7 +4,6 @@ const privateAccess = require('../middlewares/privateAccess.middleware')
 
 const router = Router();
 
-//Si la sesion ya estaba iniciada, esto permite no tener que loggearse de nuevo
 router.get('/', privateAccess, (req,res)=>{
     res.redirect('/api/products')
 })
